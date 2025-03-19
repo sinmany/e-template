@@ -1,5 +1,9 @@
+import React from "react";
+import PropTypes from "prop-types";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/app/components/Navbar";
+import AppThemeProvider from "./providers/AppThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,9 +23,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      <AppThemeProvider>
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          <Navbar />
+          {children}
+        </body>
+      </AppThemeProvider>
     </html>
   );
 }
+
+// Prop validation for children
+RootLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
